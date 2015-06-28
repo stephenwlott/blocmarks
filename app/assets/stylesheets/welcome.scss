@@ -1,0 +1,13 @@
+// Place all the styles related to the welcome controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+// "bootstrap-sprockets" must be imported before "bootstrap" and "bootstrap/variables"
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+.jumbotron {
+  body { background : white; }
+      * { color : blue; };
+  padding: 5.0em 20.0em
+}
