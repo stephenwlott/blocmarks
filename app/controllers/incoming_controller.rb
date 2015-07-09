@@ -4,10 +4,16 @@ class IncomingController < ApplicationController
   skip_before_action :verify_authenticity_token, only: [:create]
 
   def create
+    puts "--- IncomingController#create ---"
+
+    
     # Take a look at these in your server logs
     # to get a sense of what you're dealing with.
-    puts "INCOMING PARAMS HERE: #{params}"
+    puts "--- INCOMING PARAMS: #{params.inspect} ---"
 
+    @subject = params[:Subject]
+    puts "--- subject: #{@subject} ---"
+    
     # You put the message-splitting and business
     # magic here. 
 
