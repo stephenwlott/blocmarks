@@ -8,7 +8,7 @@ class IncomingController < ApplicationController
     puts "--- INCOMING PARAMS: #{params.inspect} ---"
     
     # assume that email body consists of url only
-    bookmark_url = params[:"body-plain""]
+    bookmark_url = params[:"body-plain"]
     puts "--- bookmark_url: #{bookmark_url} ---"
     
     user_email = params[:sender]
