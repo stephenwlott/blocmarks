@@ -12,19 +12,19 @@ class IncomingController < ApplicationController
     puts "--- bookmark_url: #{bookmark_url} ---"
     
     user_email = params[:sender]
-    puts "--- user_email: #{user_email}"
+    puts "--- user_email: #{user_email} ---"
     user = User.find_or_create_by!(:email => user_email) do |u|
-      puts "--- created new user for #{user_email}, id = u.id ---"
+      puts "--- created new user for #{user_email} ---"
     end
     
-    bookmark_topic = params[:Subject]
-    puts "--- bookmark_topic: #{bookmark_topic} ---"
-    topic = Topic.find_or_create_by!(:title => bookmark_topic, :user_id => user.id) do |t|
-      puts "--- created new topic for #{t.title} ---"
-    end
+#    bookmark_topic = params[:Subject]
+#    puts "--- bookmark_topic: #{bookmark_topic} ---"
+#    topic = Topic.find_or_create_by!(:title => bookmark_topic, :user_id => user.id) do |t|
+#      puts "--- created new topic for #{t.title} ---"
+#    end
 
     # create a new bookmark
-    @bookmark = Bookmark.create!(:url => bookmark_url, :topic_id => topic.id)
+#    @bookmark = Bookmark.create!(:url => bookmark_url, :topic_id => topic.id)
 
     # Assuming all went well. 
     head 200
