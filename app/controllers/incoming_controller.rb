@@ -5,7 +5,7 @@ class IncomingController < ApplicationController
 
   def create
     puts "--- IncomingController#create ---"
-    puts "--- INCOMING PARAMS: #{params.inspect} ---"
+#    puts "--- INCOMING PARAMS: #{params.inspect} ---"
     
     # assume that email body consists of url only
     bookmark_url = params[:"body-plain"]
@@ -13,12 +13,12 @@ class IncomingController < ApplicationController
     
     user_email = params[:sender]
     puts "--- user_email: #{user_email} ---"
-    user = User.find_or_create_by!(:email => user_email) do |u|
-      puts "--- created new user for #{user_email} ---"
-    end
+#    user = User.find_or_create_by!(:email => user_email) do |u|
+#      puts "--- created new user for #{user_email} ---"
+#    end
     
-#    bookmark_topic = params[:Subject]
-#    puts "--- bookmark_topic: #{bookmark_topic} ---"
+    bookmark_topic = params[:Subject]
+    puts "--- bookmark_topic: #{bookmark_topic} ---"
 #    topic = Topic.find_or_create_by!(:title => bookmark_topic, :user_id => user.id) do |t|
 #      puts "--- created new topic for #{t.title} ---"
 #    end
