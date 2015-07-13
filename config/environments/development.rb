@@ -39,7 +39,7 @@ Rails.application.configure do
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
   
-  config.action_mailer.default_url_options = { host: 'http://number1-193284.usw1-2.nitrousbox.com'}
+  config.action_mailer.default_url_options = { host: 'http://number-111576.nitrousapp.com:3000'}
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.perform_deliveries = true
 end
