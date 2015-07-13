@@ -9,16 +9,23 @@ class IncomingController < ApplicationController
     
     # assume that email body consists of url only
     bookmark_url = params[:"body-plain"]
-    puts "--- bookmark_url: #{bookmark_url} ---"
+    puts "--- bookmark_url: #{bookmark_url}"
+    bookmark_email = params[:sender]
+    puts "--- bookmark_email: #{bookmark_email}"
+    bookmark_topic = params[:Subject]
+    puts "--- bookmark_topic: #{bookmark_topic}"
     
-    user_email = params[:sender]
-    puts "--- user_email: #{user_email} ---"
+    bookmark_user = User.where(email: bookmark_email).first
+    if bookmark_user
+      puts "--- bookmark_user found, id = #{bookmark_user.id}"
+    else
+      puts "--- bookmark user not found for email #{bookmark_email}"
+    end
+      
 #    user = User.find_or_create_by!(:email => user_email) do |u|
 #      puts "--- created new user for #{user_email} ---"
 #    end
     
-    bookmark_topic = params[:Subject]
-    puts "--- bookmark_topic: #{bookmark_topic} ---"
 #    topic = Topic.find_or_create_by!(:title => bookmark_topic, :user_id => user.id) do |t|
 #      puts "--- created new topic for #{t.title} ---"
 #    end
