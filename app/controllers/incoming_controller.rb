@@ -15,13 +15,24 @@ class IncomingController < ApplicationController
     bookmark_topic = params[:Subject]
     puts "--- bookmark_topic: #{bookmark_topic}"
     
-    bookmark_user = User.where(email: bookmark_email).first
+    puts "--- User.count = #{User.count}"
+    puts "--- User.first.email = #{User.first.email}"
+    
+    bookmark_user = User.where(email: bookmark_email.to_str).first
     if bookmark_user
-      puts "--- bookmark_user found, id = #{bookmark_user.id}"
+      puts "--- 1 bookmark_user found, id = #{bookmark_user.id}"
     else
-      puts "--- bookmark user not found for email #{bookmark_email}"
+      puts "--- 1 bookmark user not found for email #{bookmark_email}"
     end
       
+    bookmark_user = nil
+    bookmark_user = User.find_by(email: bookmark_email.to_str)
+    if bookmark_user
+      puts "--- 2 bookmark_user found, id = #{bookmark_user.id}"
+    else
+      puts "--- 2 bookmark user not found for email #{bookmark_email}"
+    end
+    
 #    user = User.find_or_create_by!(:email => user_email) do |u|
 #      puts "--- created new user for #{user_email} ---"
 #    end
