@@ -4,41 +4,41 @@ class IncomingController < ApplicationController
   skip_before_action :verify_authenticity_token, only: [:create]
 
   def create
-    puts "--- IncomingController#create ---"
-#    puts "--- INCOMING PARAMS: #{params.inspect} ---"
+    Rails.logger.debug "--- IncomingController#create ---"
+#    Rails.logger.debug "--- INCOMING PARAMS: #{params.inspect} ---"
     
     # assume that email body consists of url only
     bookmark_url = params[:"body-plain"]
-    puts "--- bookmark_url: #{bookmark_url}"
+    Rails.logger.debug "--- bookmark_url: #{bookmark_url}"
     bookmark_email = params[:sender]
-    puts "--- bookmark_email: #{bookmark_email}"
+    Rails.logger.debug "--- bookmark_email: #{bookmark_email}"
     bookmark_topic = params[:Subject]
-    puts "--- bookmark_topic: #{bookmark_topic}"
+    Rails.logger.debug "--- bookmark_topic: #{bookmark_topic}"
     
-    puts "--- User.count = #{User.count}"
-    puts "--- User.first.email = #{User.first.email}"
+    Rails.logger.debug "--- User.count = #{User.count}"
+    Rails.logger.debug "--- User.first.email = #{User.first.email}"
     
     bookmark_user = User.where(email: bookmark_email.to_str).first
     if bookmark_user
-      puts "--- 1 bookmark_user found, id = #{bookmark_user.id}"
+      Rails.logger.debug "--- 1 bookmark_user found, id = #{bookmark_user.id}"
     else
-      puts "--- 1 bookmark user not found for email #{bookmark_email}"
+      Rails.logger.debug "--- 1 bookmark user not found for email #{bookmark_email}"
     end
       
     bookmark_user = nil
     bookmark_user = User.find_by(email: bookmark_email.to_str)
     if bookmark_user
-      puts "--- 2 bookmark_user found, id = #{bookmark_user.id}"
+      Rails.logger.debug "--- 2 bookmark_user found, id = #{bookmark_user.id}"
     else
-      puts "--- 2 bookmark user not found for email #{bookmark_email}"
+      Rails.logger.debug "--- 2 bookmark user not found for email #{bookmark_email}"
     end
     
 #    user = User.find_or_create_by!(:email => user_email) do |u|
-#      puts "--- created new user for #{user_email} ---"
+#      Rails.logger.debug "--- created new user for #{user_email} ---"
 #    end
     
 #    topic = Topic.find_or_create_by!(:title => bookmark_topic, :user_id => user.id) do |t|
-#      puts "--- created new topic for #{t.title} ---"
+#      Rails.logger.debug "--- created new topic for #{t.title} ---"
 #    end
 
     # create a new bookmark
