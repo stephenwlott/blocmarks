@@ -8,41 +8,53 @@ class IncomingController < ApplicationController
 #    Rails.logger.debug "--- INCOMING PARAMS: #{params.inspect} ---"
     
     # assume that email body consists of url only
-    bookmark_url = params[:"body-plain"]
-    Rails.logger.debug "--- bookmark_url: #{bookmark_url}"
-    bookmark_email = params[:sender]
-    Rails.logger.debug "--- bookmark_email: #{bookmark_email}"
-    bookmark_topic = params[:Subject]
-    Rails.logger.debug "--- bookmark_topic: #{bookmark_topic}"
+    incoming_url = params[:"body-plain"]
+    Rails.logger.debug "--- incoming_url: #{incoming_url}"
     
-    Rails.logger.debug "--- User.count = #{User.count}"
-    Rails.logger.debug "--- User.first.email = #{User.first.email}"
+    incoming_email = params[:sender]
+    Rails.logger.debug "--- incoming_email: #{incoming_email}"
     
-    bookmark_user = User.where(email: bookmark_email.to_str).first
-    if bookmark_user
-      Rails.logger.debug "--- 1 bookmark_user found, id = #{bookmark_user.id}"
-    else
-      Rails.logger.debug "--- 1 bookmark user not found for email #{bookmark_email}"
-    end
+    incoming_topic = params[:Subject]
+    Rails.logger.debug "--- incoming_topic: #{incoming_topic}"
+    
+    #Rails.logger.debug "--- User.count = #{User.count}"
+    #Rails.logger.debug "--- User.first.email = #{User.first.email}"
+    
+    #bookmark_user = User.where(email: bookmark_email.to_str).first
+    #if bookmark_user
+    #  Rails.logger.debug "--- 1 bookmark_user found, id = #{bookmark_user.id}"
+    #else
+    #  Rails.logger.debug "--- 1 bookmark user not found for email #{bookmark_email}"
+    #end
       
-    bookmark_user = nil
-    bookmark_user = User.find_by(email: bookmark_email.to_str)
-    if bookmark_user
-      Rails.logger.debug "--- 2 bookmark_user found, id = #{bookmark_user.id}"
+    test_user = User.find_by(email: incoming_email.to_str)
+    if test_user
+      Rails.logger.debug "--- 2 test_user found for email: #{incoming_email}"
     else
-      Rails.logger.debug "--- 2 bookmark user not found for email #{bookmark_email}"
+      Rails.logger.debug "--- 2 test_user not found for email: #{incoming_email}"
     end
     
-#    user = User.find_or_create_by!(:email => user_email) do |u|
-#      Rails.logger.debug "--- created new user for #{user_email} ---"
-#    end
-    
-#    topic = Topic.find_or_create_by!(:title => bookmark_topic, :user_id => user.id) do |t|
-#      Rails.logger.debug "--- created new topic for #{t.title} ---"
-#    end
+    bookmark_user = User.find_or_create_by!(:email => incoming_email) do |u|
+      Rails.logger.debug "--- 2 created new user for #{incoming_email} ---"
+    end
 
+    test_topic = Topic.find_by(title: incoming_topic.to_str)
+    if test_topic
+      Rails.logger.debug "--- 3 test_topic found for title: #{incoming_topic}"
+    else
+      Rails.logger.debug "--- 3 test_topic not found for title: #{incoming_topic}"
+    end
+    
+    bookmark_topic = Topic.find_or_create_by!(:title => incoming_topic, :user_id => bookmark_user.id) do |t|
+      Rails.logger.debug "--- 3 created new topic for #{t.title}"
+    end
+
+    Rails.logger.debug "4 Bookmark.count (before) = #{Bookmark.count}"
+    
     # create a new bookmark
-#    @bookmark = Bookmark.create!(:url => bookmark_url, :topic_id => topic.id)
+    @bookmark = Bookmark.create!(:url => bookmark_url, :topic_id => topic.id)
+    
+    Rails.logger.debug "5 Bookmark.count (after) = #{Bookmark.count}"
 
     # Assuming all went well. 
     head 200
