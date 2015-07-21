@@ -52,7 +52,7 @@ class IncomingController < ApplicationController
     Rails.logger.debug "4 Bookmark.count (before) = #{Bookmark.count}"
     
     # create a new bookmark
-    @bookmark = Bookmark.create!(:url => bookmark_url, :topic_id => topic.id)
+    @bookmark = Bookmark.create!(:url => incoming_url, :topic_id => bookmark_topic.id)
     
     Rails.logger.debug "5 Bookmark.count (after) = #{Bookmark.count}"
 
