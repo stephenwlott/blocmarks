@@ -1,0 +1,42 @@
+<div class="row">
+  <div class="col-md-3">
+  </div>
+  <div class="col-md-8">
+    <div class="media">
+      <div class="media-body">
+        <br/>
+        <% if @user %>
+          <h2 class="media-heading">user:  <%= @user.name %></h2>
+          <h2 class="media-heading">email: <%= @user.email %></h2>
+          <% if @topics %>
+            <% if @topics.first %>
+              <br/>
+              <h2>My Bookmark Topics</h2>
+              <table class="table table-bordered table-condensed">
+                <thead>
+                  <tr>
+                    <th><h3>Topic</h3></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% @topics.each do |topic| %>
+                    <%= render partial: 'topics/topic', locals: {user: @user, topic: topic} %>
+                  <% end %>
+                </tbody>
+              </table>
+            <% else %>
+              <br/>
+              <h2>No topics</h2>
+            <% end %>
+          <% else %>
+            <br/>
+            <h2>No topics</h2>
+          <% end %>
+        <% else %>
+          <br/>
+          <h2>No user signed in</h2>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

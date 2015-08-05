@@ -1,0 +1,18 @@
+<div class="row">
+  <div class="col-md-11">
+    <table class="table table-bordered table-condensed">
+      <thead>
+        <tr>
+          <h3><%= @topic.title %><br/></h3>
+        </tr>
+      </thead>  
+      <tbody>
+        <tr>
+          <% @topic.bookmarks.each do |b| %>
+            <h3><%= link_to b.url, b.url %></h3>
+          <% end %>
+        </tr>
+      </tbody>
+    </table >
+  </div>
+</div>

@@ -1,0 +1,5 @@
+<% if @topic.destroyed? %>
+   $('#topic-' +<%= @topic.id %>).hide();
+ <% else %>
+   $('#topic-' +<%= @topic.id %>).prepend("<div class='alert alert-danger'><%= flash[:error] %></div>");
+ <% end %>                                                                                       

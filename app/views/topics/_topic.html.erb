@@ -1,0 +1,8 @@
+<tr id="topic-<%= topic.id %>">
+  <td><h4><%= topic.title %><h4></td>
+  <td><h4><%= link_to "View", user_topic_path(topic.user_id, topic.id) %></h4></td>
+  <td><h4><%= link_to "Edit", edit_user_topic_path(topic.user_id, topic.id) %></h4></td>  
+  <% if topic.user_id == current_user.id %>
+    <td><h4><%= link_to "Delete", user_topic_path(topic.user_id, topic.id), method: :delete, remote: true, data: { confirm: 'Are you sure?' } %></h4></td>
+  <% end %>
+</tr>

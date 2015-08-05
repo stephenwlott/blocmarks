@@ -9,9 +9,15 @@
   </head>
   <body>
     <div class="container">
+      
       <ul class="nav nav-tabs">
         <li><%= link_to "Home", welcome_index_path %></li>
         <li><%= link_to "About", welcome_about_path %></li>
+        <% if current_user %>
+          <li><%= link_to "Topics Index", user_topics_path(current_user.id) %></li>
+          <li><%= link_to "Create New Topic", new_user_topic_path(current_user.id) %></li>
+        <% end %>
+        
         <div class="pull-right user-info">
           <% if current_user %>
             Hello <%= link_to (current_user.name || current_user.email), current_user %>!
@@ -47,8 +53,8 @@
           <%= flash[:alert] %>
         </div>
       <% end %>
+      <%= yield %>
     </div>
     
-    <%= yield %>
   </body>
 </html>
